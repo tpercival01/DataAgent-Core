@@ -61,7 +61,7 @@ source venv/bin/activate
 ```
 3. Install dependencies:
 ```bash
-pip install fastapi uvicorn pydantic python-multipart python-dotenv openai e2b_code_interpreter pandas
+pip install -r requirements.txt
 ```
 4. Create a `.env` file in the root directory and add your API keys:
 ```text

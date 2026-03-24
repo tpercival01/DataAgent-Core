@@ -15,10 +15,11 @@ if not api_key:
     raise ValueError("E2B_API_KEY is missing from environment variables.")
 
 app = FastAPI()
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=[
+        "https://data-agent-ui.vercel.app/"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

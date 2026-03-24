@@ -72,3 +72,18 @@ E2B_API_KEY=your_e2b_api_key_here
 ```bash
 uvicorn main:app --reload --port 8000
 ```
+
+
+## ⚠️ Production Deployment Notes & Known Limitations
+
+This backend is currently deployed on the free tier of Render.com. Reviewers should be aware of the following infrastructural limitations:
+
+**1. Cold Start Latency**
+Render spins down free-tier servers after 15 minutes of inactivity. If you are the first person to use the application in a while, the initial file upload or query may take up to 60 seconds to process while the container wakes up. Subsequent requests will process in milliseconds.
+
+**2. Ephemeral Filesystems & Silent Resurrection**
+The "Silent Sandbox Resurrection" feature relies on saving a localized backup of the uploaded CSV to a `/Data` directory on the server. Because Render utilizes an ephemeral file system, this local backup is destroyed every time the server spins down or redeploys. 
+
+*Result:* If a user uploads a file, leaves the app idle for 15 minutes (causing Render to sleep and the E2B sandbox to timeout), and then returns to ask a question, the resurrection will fail because the local backup no longer exists.
+
+*Production Fix:* In a true enterprise environment, the `api/v1/upload` endpoint would route the raw binary file directly to an AWS S3 bucket, and the resurrection block would pull the file from S3 rather than local storage.

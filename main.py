@@ -51,7 +51,7 @@ async def upload_dataset(file: UploadFile = File(...)):
         file.file.seek(0)
         file_content = file.file.read()
 
-        sandbox = Sandbox.create()
+        sandbox = Sandbox()
 
         remote_path = f"/home/user/{file.filename}"
         sandbox.files.write(remote_path, file_content)
@@ -104,7 +104,7 @@ async def query_data(request: QueryRequest):
         except Exception as e:
             print("Sandbox died. Initiating new one.")
             try:
-                sandbox = Sandbox.create()
+                sandbox = Sandbox()
                 new_session_id = sandbox.sandbox_id
 
                 local_path = os.path.join("Data", request.filename)

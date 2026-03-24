@@ -1,5 +1,8 @@
 # DataAgent Core: Autonomous B2B Data Analytics Engine
 
+**Live Application:** https://data-agent-ui.vercel.app/
+**Frontend Architecture Repository:** https://github.com/tpercival01/DataAgent-UI
+
 DataAgent Core is a fully autonomous, fault tolerant Python execution engine. 
 
 It takes plain English business questions, translates them into executable Python data science code (using pandas and matplotlib), securely executes that code in an isolated ephemeral cloud container, and streams the standard output and base64 encoded charts back to the client.
